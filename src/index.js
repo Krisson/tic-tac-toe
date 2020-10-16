@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Square from './Square';
-import Board from './Board';
-import Game from './Game';
+import Game from './containers/Game';
 
 
 ReactDOM.render(
