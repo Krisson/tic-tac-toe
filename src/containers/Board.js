@@ -22,17 +22,25 @@ class Board extends React.Component {
     }
 
     // if xIsNext=true then 'x', if not the 'o'
-    squares[i]= this.state.xIsNext ? 'X' : 'O';
-debugger;
+    //squares[i]= this.state.xIsNext ? 'X' : 'O';
+    if(this.state.xIsNext){
+      squares[i] = "X";
+
+      var comp = randomNumber(1,9, squares);
+      debugger;
+
+      squares[comp] = "O";
+
+    }
     // updating the state
     this.setState({
       squares: squares, // updates the array
-      xIsNext: !this.state.xIsNext, // updates the X value to true or false
+      xIsNext: this.state.xIsNext, // updates the X value to true or false
     });
   }
 
+
   renderSquare(i) {
-    debugger;
     return <Square
     // passing down two props to the Square component: VALUE and onClick();
     value={ this.state.squares[i] }
@@ -49,7 +57,7 @@ debugger;
     if (winner){
       status = 'Winner is: ' + winner;
     } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+      //  status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
 
 
@@ -77,7 +85,6 @@ debugger;
 }
 
 function calculateWinner(squares) {
-  debugger;
   // possible values for the winner of this game
   const lines = [
     [0, 1, 2],
@@ -97,6 +104,21 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+
+// comp func for 'O'
+function randomNumber(min, max, squares) {
+  var num = Math.floor(Math.random() * (max - min)) + min;
+  if(squares[num] == null){
+    return num;
+  }
+  for (var i=0 ; i < squares.length; i++){
+    if(squares[i] == null){
+      num = i;
+      break;
+    }
+  }
+  return num;
 }
 
 export default Board;
